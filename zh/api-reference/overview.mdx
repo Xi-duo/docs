@@ -1,0 +1,47 @@
+---
+title: 'API 总览'
+description: 'Thunderbit Open API 的 Base URL、认证和错误处理'
+---
+
+## Base URL
+
+```
+https://open.thunderbit.com/v1
+```
+
+## 认证
+
+所有端点使用 HTTP Bearer（JWT）：
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## 错误响应
+
+<Warning>
+错误使用统一信封：`{ "success": false, "error": { "code": "...", "message": "..." } }`
+</Warning>
+
+| 错误码                | 含义                        |
+| --------------------- | --------------------------- |
+| `INVALID_URL`         | URL 格式无效                |
+| `URL_NOT_ACCESSIBLE`  | 目标 URL 不可访问           |
+| `TIMEOUT`             | 请求超时                    |
+| `QUOTA_EXCEEDED`      | 配额耗尽                    |
+| `RATE_LIMITED`        | 触发速率限制                |
+| `INVALID_SCHEMA`      | JSON Schema 无效            |
+| `EXTRACTION_FAILED`   | AI 提取失败                 |
+| `BATCH_SIZE_EXCEEDED` | 批量请求超过上限            |
+| `INVALID_WEBHOOK_URL` | Webhook URL 无效或非 HTTPS  |
+
+## 端点列表
+
+<CardGroup cols={2}>
+  <Card title="POST /distill" icon="file-lines" href="/zh/api-reference/endpoints/distill">单页蒸馏成 Markdown</Card>
+  <Card title="POST /batch/distill" icon="layer-group" href="/zh/api-reference/endpoints/batch-distill">批量蒸馏最多 100 个 URL</Card>
+  <Card title="GET /batch/distill/{id}" icon="clock-rotate-left" href="/zh/api-reference/endpoints/batch-distill-status">查询批量蒸馏任务状态</Card>
+  <Card title="POST /extract" icon="brain" href="/zh/api-reference/endpoints/extract">AI 结构化提取</Card>
+  <Card title="POST /extract/batch" icon="layer-group" href="/zh/api-reference/endpoints/extract-batch">批量提取最多 50 个 URL</Card>
+  <Card title="GET /extract/batch/{id}" icon="clock-rotate-left" href="/zh/api-reference/endpoints/extract-batch-status">查询批量提取任务状态</Card>
+</CardGroup>

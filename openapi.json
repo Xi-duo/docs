@@ -1,0 +1,894 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Thunderbit Open API",
+    "version": "1.0.0",
+    "x-logo": {
+      "url": "./logo.png",
+      "altText": "Thunderbit Logo"
+    },
+    "description": "Thunderbit Open API provides powerful web distillation and intelligent data extraction capabilities, turning any web content into LLM-ready formats.\n\n## Key Features\n\n🔥 **Web Distillation** - Convert web pages into clean Markdown format, perfect for AI applications\n\n🧠 **AI-Powered Extraction** - Extract structured data using schemas or natural language prompts\n\n⚡ **Batch Processing** - Process multiple URLs simultaneously with asynchronous job management\n\n🛡️ **Enterprise-Ready** - Handles JavaScript rendering, anti-bot measures, proxies, and dynamic content automatically\n\n## What We Handle For You\n\n- **Dynamic Content**: JavaScript-rendered pages, SPAs, and AJAX-loaded content\n- **Anti-Bot Protection**: Automatic handling of CAPTCHAs and bot detection systems\n- **Content Processing**: Intelligent cleaning and formatting for optimal AI consumption\n- **Metadata Extraction**: Automatic extraction of titles, descriptions, and structured metadata\n\n## Authentication\n\nAll API requests require an API Key in the Header:\n```\nAuthorization: Bearer <YOUR_API_KEY>\n```\n\nGet your API key from the [Thunderbit Dashboard](https://thunderbit.com).\n\n## Rate Limits\n\n| Plan | Request Limit | Concurrency | Best For |\n|------|---------------|-------------|----------|\n| Free | 10 requests/min | 2 concurrent | Testing & prototyping |\n| Pro | 100 requests/min | 10 concurrent | Production apps |\n| Enterprise | 1000 requests/min | 50 concurrent | Large-scale operations |\n\n## Output Formats\n\n- **Markdown**: Clean, LLM-optimized markdown format\n- **Structured Data**: JSON output based on your schema\n- **Metadata**: Automatic extraction of page metadata\n"
+  },
+  "servers": [
+    {
+      "url": "https://open.thunderbit.com/v1",
+      "description": "Production server"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Distill",
+      "description": "Convert web pages into clean, LLM-ready Markdown format. Handles JavaScript rendering, dynamic content, and anti-bot protection automatically."
+    },
+    {
+      "name": "Extract",
+      "description": "AI-powered structured data extraction. Define your desired data structure using JSON Schema or natural language prompts, and let our AI extract the information for you."
+    },
+    {
+      "name": "Batch",
+      "description": "Process multiple URLs asynchronously. Submit batch jobs and poll for results, ideal for large-scale data collection operations."
+    }
+  ],
+  "paths": {
+    "/distill": {
+      "post": {
+        "tags": ["Distill"],
+        "summary": "Distill Single Page",
+        "description": "Convert a web page into clean, LLM-ready Markdown format.\n\n**Use Cases:**\n- Prepare web content for RAG (Retrieval-Augmented Generation)\n- Extract article content for AI processing\n- Convert documentation pages to markdown\n- Process dynamic web applications\n\n**What's Included:**\n- Clean markdown content with preserved structure\n- Automatic removal of ads, navigation, and boilerplate\n- Metadata extraction (title, description, language)\n- JavaScript rendering for dynamic content\n- Automatic handling of anti-bot measures\n\n**Output Format:**\nReturns markdown optimized for LLM consumption with minimal noise and maximum signal.",
+        "operationId": "distill",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["url"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The URL of the web page to distill",
+                    "example": "https://example.com/article"
+                  },
+                  "timeout": {
+                    "type": "number",
+                    "description": "Request timeout in milliseconds (default: 30000, max: 60000)",
+                    "default": 30000,
+                    "minimum": 5000,
+                    "maximum": 60000,
+                    "example": 30000
+                  },
+                  "waitFor": {
+                    "type": "number",
+                    "description": "Time to wait (in milliseconds) after page load for dynamic content to render before extracting content",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 10000,
+                    "example": 2000
+                  },
+                  "includeTags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Only include content from these HTML tags (e.g., ['article', 'main', 'div.content'])",
+                    "example": ["article", "main"]
+                  },
+                  "excludeTags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Exclude content from these HTML tags (e.g., ['nav', 'footer', 'aside'])",
+                    "example": ["nav", "footer", "aside"]
+                  },
+                  "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "Custom HTTP headers to send with the request",
+                    "example": {
+                      "User-Agent": "MyBot/1.0",
+                      "Accept-Language": "en-US"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "The URL that was distilled",
+                          "example": "https://example.com/article"
+                        },
+                        "markdown": {
+                          "type": "string",
+                          "description": "Clean markdown content extracted from the page",
+                          "example": "# Understanding Web Distillation\n\nWeb distillation is the process of converting raw HTML into clean, structured content...\n\n## Key Benefits\n\n- **LLM-Ready Format**: Optimized for AI consumption\n- **Noise Removal**: Automatic filtering of ads and boilerplate\n- **Structure Preservation**: Maintains semantic hierarchy\n\n## Use Cases\n\nWeb distillation is ideal for:\n\n1. Building RAG systems\n2. Content analysis\n3. Knowledge base creation"
+                        },
+                        "html": {
+                          "type": "string",
+                          "description": "Raw HTML content (optional, only if requested)",
+                          "example": "<article><h1>Understanding Web Distillation</h1>...</article>"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "description": "Page title extracted from <title> tag or Open Graph",
+                              "example": "Understanding Web Distillation | Tech Blog"
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "Meta description or excerpt",
+                              "example": "Learn how web distillation converts raw HTML into clean, LLM-ready content for AI applications."
+                            },
+                            "language": {
+                              "type": "string",
+                              "description": "Detected language code (ISO 639-1)",
+                              "example": "en"
+                            },
+                            "author": {
+                              "type": "string",
+                              "description": "Article author if available",
+                              "example": "John Doe"
+                            },
+                            "publishedDate": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Publication date if available",
+                              "example": "2024-01-15T10:00:00Z"
+                            },
+                            "image": {
+                              "type": "string",
+                              "description": "Featured image URL from Open Graph or Twitter Card",
+                              "example": "https://example.com/images/featured.jpg"
+                            },
+                            "sourceURL": {
+                              "type": "string",
+                              "description": "Original URL (may differ from requested URL due to redirects)",
+                              "example": "https://example.com/article"
+                            },
+                            "statusCode": {
+                              "type": "integer",
+                              "description": "HTTP status code of the response",
+                              "example": 200
+                            },
+                            "contentLength": {
+                              "type": "integer",
+                              "description": "Length of the markdown content in characters",
+                              "example": 4523
+                            }
+                          }
+                        },
+                        "links": {
+                          "type": "array",
+                          "description": "Links found in the content",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "example": "Related Article"
+                              },
+                              "href": {
+                                "type": "string",
+                                "example": "https://example.com/related"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/batch/distill": {
+      "post": {
+        "tags": ["Batch", "Distill"],
+        "summary": "Batch Distill Multiple Pages",
+        "description": "Distill multiple web pages simultaneously with asynchronous processing.\n\n**Use Cases:**\n- Process entire website sections or categories\n- Batch import content into your knowledge base\n- Large-scale content migration\n- Periodic content updates from multiple sources\n\n**How It Works:**\n1. Submit a batch job with up to 100 URLs\n2. Receive a job ID immediately\n3. Poll the status endpoint or receive webhook notification\n4. Retrieve all results when complete\n\n**Features:**\n- Asynchronous processing for high throughput\n- Automatic retry on failures\n- Webhook notifications when complete\n- Detailed per-URL status and error reporting",
+        "operationId": "batchDistill",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["urls"],
+                "properties": {
+                  "urls": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of URLs to distill, maximum 100",
+                    "example": [
+                      "https://example.com/page1",
+                      "https://example.com/page2",
+                      "https://example.com/page3"
+                    ]
+                  },
+                  "timeout": {
+                    "type": "number",
+                    "description": "Timeout per request in milliseconds, default 30000",
+                    "default": 30000
+                  },
+                  "webhook": {
+                    "type": "object",
+                    "description": "Webhook callback configuration, notifies when task completes",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "Webhook callback URL, must be HTTPS",
+                        "example": "https://your-server.com/api/webhook/distill"
+                      },
+                      "headers": {
+                        "type": "object",
+                        "description": "Custom callback headers, can be used for authentication",
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "example": {
+                          "Authorization": "Bearer your-webhook-secret"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Batch task ID",
+                          "example": "batch_abc123"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["processing", "completed", "failed"],
+                          "example": "processing"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 3
+                        },
+                        "completed": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "creditsUsed": {
+                          "type": "integer",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/batch/distill/{id}": {
+      "get": {
+        "tags": ["Batch", "Distill"],
+        "summary": "Get Batch Distill Job Status",
+        "description": "Check the status and retrieve results of a batch distill job.\n\n**Response States:**\n- `processing`: Job is currently running\n- `completed`: All URLs have been processed\n- `failed`: Job encountered a fatal error\n\n**Polling Best Practices:**\n- Poll every 5-10 seconds for jobs with <10 URLs\n- Poll every 30-60 seconds for larger jobs\n- Use webhooks for better efficiency\n\n**Partial Results:**\nYou can retrieve completed results while the job is still processing. The `results` array will contain all URLs processed so far.",
+        "operationId": "getBatchDistillStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Batch task ID",
+            "example": "batch_abc123"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "batch_abc123"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["processing", "completed", "failed"],
+                          "example": "completed"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 3
+                        },
+                        "completed": {
+                          "type": "integer",
+                          "example": 3
+                        },
+                        "creditsUsed": {
+                          "type": "integer",
+                          "example": 3
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "success": {
+                                "type": "boolean"
+                              },
+                              "markdown": {
+                                "type": "string"
+                              },
+                              "error": {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extract": {
+      "post": {
+        "tags": ["Extract"],
+        "summary": "AI-Powered Structured Extraction",
+        "description": "Extract structured data from web pages using AI. Define your desired output structure with JSON Schema, and our AI will intelligently extract the information.\n\n**Use Cases:**\n- Extract product information from e-commerce pages\n- Parse job listings into structured format\n- Extract contact information and business details\n- Convert news articles into structured data\n- Scrape pricing tables and specifications\n\n**How It Works:**\n1. Provide a URL and a JSON Schema defining your desired structure\n2. Our AI analyzes the page content\n3. Extracts data matching your schema\n4. Returns validated JSON output\n\n**Schema Definition:**\n\nUse JSON Schema to define your desired output structure:\n- **Field types**: string, number, boolean, array, object\n- **Field descriptions**: Help the AI understand what to extract\n- **Required fields**: Mark critical fields as required\n- **Nested structures**: Support for complex, nested data\n\n**Example Schema:**\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"description\": \"Product name or title\"\n    },\n    \"price\": {\n      \"type\": \"number\",\n      \"description\": \"Current price in USD\"\n    },\n    \"availability\": {\n      \"type\": \"boolean\",\n      \"description\": \"Whether the product is in stock\"\n    },\n    \"features\": {\n      \"type\": \"array\",\n      \"items\": {\"type\": \"string\"},\n      \"description\": \"List of key product features\"\n    }\n  },\n  \"required\": [\"title\", \"price\"]\n}\n```",
+        "operationId": "extract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["url", "schema"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The URL of the web page to extract data from",
+                    "example": "https://example.com/product"
+                  },
+                  "schema": {
+                    "type": "object",
+                    "description": "Data structure definition in JSON Schema format",
+                    "example": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Product name"
+                        },
+                        "price": {
+                          "type": "number",
+                          "description": "Product price"
+                        },
+                        "currency": {
+                          "type": "string",
+                          "description": "Currency unit"
+                        }
+                      },
+                      "required": ["name", "price"]
+                    }
+                  },
+                  "timeout": {
+                    "type": "number",
+                    "description": "Request timeout in milliseconds, default 30000",
+                    "default": 30000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "example": "https://example.com/product"
+                        },
+                        "extract": {
+                          "type": "object",
+                          "description": "Extracted structured data matching your schema",
+                          "example": {
+                            "name": "iPhone 15 Pro",
+                            "price": 999,
+                            "currency": "USD",
+                            "availability": true,
+                            "rating": 4.7,
+                            "reviewCount": 1253,
+                            "description": "Apple's latest flagship smartphone featuring the powerful A17 Pro chip, advanced camera system with 5x optical zoom, and titanium design.",
+                            "features": [
+                              "A17 Pro chip with 6-core GPU",
+                              "Pro camera system with 48MP main camera",
+                              "Titanium design with textured matte glass",
+                              "Action button for quick access",
+                              "USB-C connectivity",
+                              "Up to 29 hours video playback"
+                            ],
+                            "specifications": [
+                              {
+                                "category": "Display",
+                                "items": [
+                                  {
+                                    "key": "Screen Size",
+                                    "value": "6.1 inches"
+                                  },
+                                  {
+                                    "key": "Resolution",
+                                    "value": "2556 x 1179"
+                                  },
+                                  {
+                                    "key": "Type",
+                                    "value": "Super Retina XDR OLED"
+                                  }
+                                ]
+                              },
+                              {
+                                "category": "Storage & Memory",
+                                "items": [
+                                  {
+                                    "key": "Storage Options",
+                                    "value": "128GB, 256GB, 512GB, 1TB"
+                                  },
+                                  { "key": "RAM", "value": "8GB" }
+                                ]
+                              }
+                            ],
+                            "images": [
+                              "https://example.com/iphone-front.jpg",
+                              "https://example.com/iphone-back.jpg"
+                            ],
+                            "variants": [
+                              {
+                                "color": "Natural Titanium",
+                                "available": true
+                              },
+                              { "color": "Blue Titanium", "available": true },
+                              { "color": "White Titanium", "available": false },
+                              { "color": "Black Titanium", "available": true }
+                            ]
+                          }
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "sourceURL": {
+                              "type": "string",
+                              "example": "https://example.com/product/iphone-15-pro"
+                            },
+                            "statusCode": {
+                              "type": "integer",
+                              "example": 200
+                            },
+                            "extractedAt": {
+                              "type": "string",
+                              "format": "date-time",
+                              "example": "2024-01-15T14:30:00Z"
+                            },
+                            "confidence": {
+                              "type": "number",
+                              "description": "AI confidence score (0-1) for the extraction quality",
+                              "example": 0.95
+                            },
+                            "processingTime": {
+                              "type": "integer",
+                              "description": "Time taken to process in milliseconds",
+                              "example": 3450
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extract/batch": {
+      "post": {
+        "tags": ["Batch", "Extract"],
+        "summary": "Batch Extract Multiple Pages",
+        "description": "Extract structured data from multiple URLs simultaneously using AI.\n\n**Use Cases:**\n- Scrape product catalogs from multiple pages\n- Extract data from search result pages\n- Batch process listings or directory pages\n- Collect competitive intelligence at scale\n\n**How It Works:**\n1. Submit up to 50 URLs with a single schema\n2. Get immediate job ID response\n3. All URLs are extracted using the same schema\n4. Poll for status or receive webhook notification\n5. Retrieve all structured results at once\n\n**Features:**\n- Same schema applied to all URLs\n- Parallel processing for speed\n- Individual error handling per URL\n- Webhook notifications available",
+        "operationId": "batchExtract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["urls", "schema"],
+                "properties": {
+                  "urls": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of URLs to extract data from, maximum 50",
+                    "example": [
+                      "https://example.com/product/1",
+                      "https://example.com/product/2",
+                      "https://example.com/product/3"
+                    ]
+                  },
+                  "schema": {
+                    "type": "object",
+                    "description": "Data structure definition in JSON Schema format",
+                    "example": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "rating": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "timeout": {
+                    "type": "number",
+                    "description": "Timeout per request in milliseconds, default 30000",
+                    "default": 30000
+                  },
+                  "webhook": {
+                    "type": "object",
+                    "description": "Webhook callback configuration, notifies when task completes",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "Webhook callback URL, must be HTTPS"
+                      },
+                      "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "batch_ext_xyz789"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["processing", "completed", "failed"],
+                          "example": "processing"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 3
+                        },
+                        "completed": {
+                          "type": "integer",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extract/batch/{id}": {
+      "get": {
+        "tags": ["Batch", "Extract"],
+        "summary": "Get Batch Extract Job Status",
+        "description": "Check status and retrieve extracted data from a batch extraction job.\n\n**Response States:**\n- `processing`: Extraction in progress\n- `completed`: All extractions finished\n- `failed`: Job failed (check error details)\n\n**Results Format:**\nEach URL in the results array contains:\n- Extracted data matching your schema\n- Success/failure status\n- Individual error messages if applicable\n- Confidence scores for extraction quality",
+        "operationId": "getBatchExtractStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Batch task ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["processing", "completed", "failed"]
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "completed": {
+                          "type": "integer"
+                        },
+                        "creditsUsed": {
+                          "type": "integer"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "success": {
+                                "type": "boolean"
+                              },
+                              "extract": {
+                                "type": "object"
+                              },
+                              "error": {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Enter your API key from the Thunderbit Dashboard. The header format will be: `Authorization: Bearer YOUR_API_KEY`"
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Invalid request parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "success": false,
+              "error": {
+                "code": "INVALID_URL",
+                "message": "The provided URL is not valid"
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Authentication failed, invalid API Key",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "success": false,
+              "error": {
+                "code": "UNAUTHORIZED",
+                "message": "Invalid API key"
+              }
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "Too many requests, rate limit triggered",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "success": false,
+              "error": {
+                "code": "RATE_LIMITED",
+                "message": "Too many requests"
+              }
+            }
+          }
+        },
+        "headers": {
+          "X-RateLimit-Limit": {
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Rate limit ceiling"
+          },
+          "X-RateLimit-Remaining": {
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Remaining requests"
+          },
+          "X-RateLimit-Reset": {
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Reset timestamp"
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error codes:\n- INVALID_URL: Invalid URL format\n- URL_NOT_ACCESSIBLE: Unable to access target URL\n- TIMEOUT: Request timeout\n- QUOTA_EXCEEDED: Quota exhausted\n- RATE_LIMITED: Rate limit triggered\n- INVALID_SCHEMA: Invalid Schema format\n- EXTRACTION_FAILED: AI extraction failed\n- BATCH_SIZE_EXCEEDED: Batch request count exceeded limit\n- INVALID_WEBHOOK_URL: Invalid Webhook URL format or not HTTPS\n- WEBHOOK_DELIVERY_FAILED: Webhook callback delivery failed\n"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error description message"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

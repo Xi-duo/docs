@@ -1,0 +1,47 @@
+---
+title: 'はじめに'
+description: 'Thunderbit Open API で、あらゆるウェブコンテンツを LLM 対応データに'
+---
+
+<Card title="Thunderbit Open API へようこそ" icon="bolt" href="/ja/quickstart">
+  強力なウェブ蒸留と AI データ抽出。任意のウェブページをクリーンな Markdown や構造化 JSON に変換 — AI アプリケーション向けに最適化。
+</Card>
+
+## 主な機能
+
+<CardGroup cols={2}>
+  <Card title="ウェブ蒸留" icon="wand-magic-sparkles">
+    ウェブページを RAG や AI 用途に最適なクリーンな Markdown に変換します。
+  </Card>
+  <Card title="AI 構造化抽出" icon="brain">
+    JSON Schema または自然言語プロンプトで構造化データを抽出します。
+  </Card>
+  <Card title="バッチ処理" icon="layer-group">
+    複数 URL を非同期で処理。ジョブ管理と Webhook 通知に対応。
+  </Card>
+  <Card title="エンタープライズ対応" icon="shield-halved">
+    JS レンダリング、Bot 対策、プロキシ、動的コンテンツを自動処理。
+  </Card>
+</CardGroup>
+
+## 認証
+
+<Note>
+すべてのリクエストで Bearer トークンが必要です。[Thunderbit ダッシュボード](https://thunderbit.com) から取得してください。
+</Note>
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## レート制限
+
+| プラン     | リクエスト   | 同時実行 | 用途              |
+| ---------- | ------------ | -------- | ----------------- |
+| Free       | 10/分        | 2        | 検証・プロトタイプ|
+| Pro        | 100/分       | 10       | プロダクション    |
+| Enterprise | 1000/分      | 50       | 大規模運用        |
+
+<Tip>
+次は [クイックスタート](/ja/quickstart) または [API リファレンス](/ja/api-reference/overview) へ。
+</Tip>

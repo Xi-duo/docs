@@ -1,0 +1,17 @@
+{
+  "name": "@thunderbit/docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thunderbit Mintlify documentation site",
+  "scripts": {
+    "dev": "mintlify dev --port 3002",
+    "build": "mintlify build",
+    "broken-links": "mintlify broken-links",
+    "migrate:i18n": "node scripts/migrate-i18n.js",
+    "migrate:i18n:dry": "node scripts/migrate-i18n.js --dry-run",
+    "clean": "rm -rf .mintlify .turbo node_modules"
+  },
+  "devDependencies": {
+    "mintlify": "^4.2.520"
+  }
+}

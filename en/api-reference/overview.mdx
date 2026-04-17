@@ -1,0 +1,47 @@
+---
+title: 'API Overview'
+description: 'Base URL, authentication, and error handling for the Thunderbit Open API'
+---
+
+## Base URL
+
+```
+https://open.thunderbit.com/v1
+```
+
+## Authentication
+
+All endpoints use HTTP Bearer (JWT):
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Error Responses
+
+<Warning>
+Errors return a consistent envelope: `{ "success": false, "error": { "code": "...", "message": "..." } }`
+</Warning>
+
+| Code                  | Meaning                             |
+| --------------------- | ----------------------------------- |
+| `INVALID_URL`         | Invalid URL format                  |
+| `URL_NOT_ACCESSIBLE`  | Target URL unreachable              |
+| `TIMEOUT`             | Request timeout                     |
+| `QUOTA_EXCEEDED`      | Quota exhausted                     |
+| `RATE_LIMITED`        | Rate limit triggered                |
+| `INVALID_SCHEMA`      | Invalid JSON Schema                 |
+| `EXTRACTION_FAILED`   | AI extraction failed                |
+| `BATCH_SIZE_EXCEEDED` | Batch request exceeds maximum       |
+| `INVALID_WEBHOOK_URL` | Webhook URL invalid or not HTTPS    |
+
+## Endpoints
+
+<CardGroup cols={2}>
+  <Card title="POST /distill" icon="file-lines" href="/en/api-reference/endpoints/distill">Distill a single page to Markdown</Card>
+  <Card title="POST /batch/distill" icon="layer-group" href="/en/api-reference/endpoints/batch-distill">Batch distill up to 100 URLs</Card>
+  <Card title="GET /batch/distill/{id}" icon="clock-rotate-left" href="/en/api-reference/endpoints/batch-distill-status">Poll batch distill status</Card>
+  <Card title="POST /extract" icon="brain" href="/en/api-reference/endpoints/extract">AI structured extraction</Card>
+  <Card title="POST /extract/batch" icon="layer-group" href="/en/api-reference/endpoints/extract-batch">Batch extract up to 50 URLs</Card>
+  <Card title="GET /extract/batch/{id}" icon="clock-rotate-left" href="/en/api-reference/endpoints/extract-batch-status">Poll batch extract status</Card>
+</CardGroup>

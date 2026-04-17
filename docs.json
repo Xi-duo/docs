@@ -1,122 +1,146 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Thunderbit Open API",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6366F1",
+    "light": "#818CF8",
+    "dark": "#4F46E5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "versions": [
       {
-        "tab": "Guides",
+        "version": "en",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "en/introduction",
+              "en/quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "API Reference",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "en/api-reference/overview",
+              {
+                "group": "Distill",
+                "pages": [
+                  "en/api-reference/endpoints/distill",
+                  "en/api-reference/endpoints/batch-distill",
+                  "en/api-reference/endpoints/batch-distill-status"
+                ]
+              },
+              {
+                "group": "Extract",
+                "pages": [
+                  "en/api-reference/endpoints/extract",
+                  "en/api-reference/endpoints/extract-batch",
+                  "en/api-reference/endpoints/extract-batch-status"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "version": "zh",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "开始使用",
             "pages": [
-              "api-reference/introduction"
+              "zh/introduction",
+              "zh/quickstart"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "API 参考",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "zh/api-reference/overview",
+              {
+                "group": "Distill",
+                "pages": [
+                  "zh/api-reference/endpoints/distill",
+                  "zh/api-reference/endpoints/batch-distill",
+                  "zh/api-reference/endpoints/batch-distill-status"
+                ]
+              },
+              {
+                "group": "Extract",
+                "pages": [
+                  "zh/api-reference/endpoints/extract",
+                  "zh/api-reference/endpoints/extract-batch",
+                  "zh/api-reference/endpoints/extract-batch-status"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "version": "ja",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": [
+              "ja/introduction",
+              "ja/quickstart"
+            ]
+          },
+          {
+            "group": "API リファレンス",
+            "pages": [
+              "ja/api-reference/overview",
+              {
+                "group": "Distill",
+                "pages": [
+                  "ja/api-reference/endpoints/distill",
+                  "ja/api-reference/endpoints/batch-distill",
+                  "ja/api-reference/endpoints/batch-distill-status"
+                ]
+              },
+              {
+                "group": "Extract",
+                "pages": [
+                  "ja/api-reference/endpoints/extract",
+                  "ja/api-reference/endpoints/extract-batch",
+                  "ja/api-reference/endpoints/extract-batch-status"
+                ]
+              }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+  "api": {
+    "openapi": [
+      "openapi.json"
+    ]
+  },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@thunderbit.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "API Console",
+      "href": "https://app.thunderbit.com/console"
     }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/thunderbit",
+      "github": "https://github.com/thunderbit",
+      "linkedin": "https://linkedin.com/company/thunderbit"
     }
   }
 }

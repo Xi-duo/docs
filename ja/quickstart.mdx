@@ -1,0 +1,51 @@
+---
+title: 'クイックスタート'
+description: '60 秒で Thunderbit API の最初のリクエストを送る'
+---
+
+## 1. API キーを取得
+
+<Steps>
+  <Step title="サインアップ">
+    [thunderbit.com](https://thunderbit.com) でアカウント作成。
+  </Step>
+  <Step title="キーをコピー">
+    **ダッシュボード → API Keys** から取得。
+  </Step>
+  <Step title="環境変数を設定">
+    ```bash
+    export THUNDERBIT_API_KEY="sk_live_..."
+    ```
+  </Step>
+</Steps>
+
+## 2. ページを蒸留
+
+```bash
+curl 'https://open.thunderbit.com/v1/distill' \
+  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"url": "https://example.com/article"}'
+```
+
+## 3. 構造化データを抽出
+
+```bash
+curl 'https://open.thunderbit.com/v1/extract' \
+  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "url": "https://example.com/product",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string"},
+        "price": {"type": "number"}
+      }
+    }
+  }'
+```
+
+<Check>
+`success: true` のレスポンスが返ってきたら成功です。続けて [API リファレンス](/ja/api-reference/overview) を確認してください。
+</Check>

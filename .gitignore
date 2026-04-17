@@ -1,0 +1,9 @@
+# Mintlify 本地缓存
+.mintlify/
+_build/
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/

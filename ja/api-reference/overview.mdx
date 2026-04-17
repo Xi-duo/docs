@@ -1,0 +1,47 @@
+---
+title: 'API 概要'
+description: 'Thunderbit Open API の Base URL、認証、エラーハンドリング'
+---
+
+## Base URL
+
+```
+https://open.thunderbit.com/v1
+```
+
+## 認証
+
+すべてのエンドポイントで HTTP Bearer (JWT) を使用：
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+## エラーレスポンス
+
+<Warning>
+エラーは共通フォーマットで返されます：`{ "success": false, "error": { "code": "...", "message": "..." } }`
+</Warning>
+
+| コード                | 意味                              |
+| --------------------- | --------------------------------- |
+| `INVALID_URL`         | URL フォーマットが不正            |
+| `URL_NOT_ACCESSIBLE`  | 対象 URL にアクセスできない       |
+| `TIMEOUT`             | リクエストタイムアウト            |
+| `QUOTA_EXCEEDED`      | クォータ上限に到達                |
+| `RATE_LIMITED`        | レート制限を超過                  |
+| `INVALID_SCHEMA`      | JSON Schema が不正                |
+| `EXTRACTION_FAILED`   | AI 抽出に失敗                     |
+| `BATCH_SIZE_EXCEEDED` | バッチリクエスト数が上限を超過    |
+| `INVALID_WEBHOOK_URL` | Webhook URL が無効または非 HTTPS  |
+
+## エンドポイント
+
+<CardGroup cols={2}>
+  <Card title="POST /distill" icon="file-lines" href="/ja/api-reference/endpoints/distill">単一ページを Markdown に蒸留</Card>
+  <Card title="POST /batch/distill" icon="layer-group" href="/ja/api-reference/endpoints/batch-distill">最大 100 URL のバッチ蒸留</Card>
+  <Card title="GET /batch/distill/{id}" icon="clock-rotate-left" href="/ja/api-reference/endpoints/batch-distill-status">バッチ蒸留ジョブのステータス</Card>
+  <Card title="POST /extract" icon="brain" href="/ja/api-reference/endpoints/extract">AI 構造化抽出</Card>
+  <Card title="POST /extract/batch" icon="layer-group" href="/ja/api-reference/endpoints/extract-batch">最大 50 URL のバッチ抽出</Card>
+  <Card title="GET /extract/batch/{id}" icon="clock-rotate-left" href="/ja/api-reference/endpoints/extract-batch-status">バッチ抽出ジョブのステータス</Card>
+</CardGroup>

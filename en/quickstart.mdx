@@ -1,0 +1,51 @@
+---
+title: 'Quickstart'
+description: 'Make your first Thunderbit API call in under 60 seconds'
+---
+
+## 1. Get your API Key
+
+<Steps>
+  <Step title="Sign up">
+    Create an account at [thunderbit.com](https://thunderbit.com).
+  </Step>
+  <Step title="Copy your key">
+    Find your key in **Dashboard → API Keys**.
+  </Step>
+  <Step title="Set environment variable">
+    ```bash
+    export THUNDERBIT_API_KEY="sk_live_..."
+    ```
+  </Step>
+</Steps>
+
+## 2. Distill a page
+
+```bash
+curl 'https://open.thunderbit.com/v1/distill' \
+  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"url": "https://example.com/article"}'
+```
+
+## 3. Extract structured data
+
+```bash
+curl 'https://open.thunderbit.com/v1/extract' \
+  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "url": "https://example.com/product",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string"},
+        "price": {"type": "number"}
+      }
+    }
+  }'
+```
+
+<Check>
+You should receive a JSON response with `success: true`. Next, explore the full [API Reference](/en/api-reference/overview).
+</Check>

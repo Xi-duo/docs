@@ -1,0 +1,47 @@
+---
+title: '简介'
+description: '用 Thunderbit Open API 把任意网页内容转成 LLM 可用数据'
+---
+
+<Card title="欢迎使用 Thunderbit Open API" icon="bolt" href="/zh/quickstart">
+  强大的网页蒸馏和智能数据提取能力。把任意网页转换为干净的 Markdown 或结构化 JSON — 为 AI 应用而生。
+</Card>
+
+## 核心能力
+
+<CardGroup cols={2}>
+  <Card title="网页蒸馏" icon="wand-magic-sparkles">
+    把网页转成干净的 Markdown 格式，完美适配 RAG 和 AI 应用。
+  </Card>
+  <Card title="AI 结构化提取" icon="brain">
+    使用 JSON Schema 或自然语言提示提取结构化数据。
+  </Card>
+  <Card title="批量处理" icon="layer-group">
+    异步批量处理多个 URL，支持任务管理和 Webhook 回调。
+  </Card>
+  <Card title="企业级" icon="shield-halved">
+    自动处理 JS 渲染、反爬、代理和动态内容。
+  </Card>
+</CardGroup>
+
+## 认证
+
+<Note>
+所有请求需要 Bearer Token。从 [Thunderbit Dashboard](https://thunderbit.com) 获取你的 API Key。
+</Note>
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## 速率限制
+
+| 套餐       | 请求上限   | 并发 | 适用场景    |
+| ---------- | ---------- | ---- | ----------- |
+| Free       | 10 次/分钟 | 2    | 测试和原型  |
+| Pro        | 100 次/分钟| 10   | 生产应用    |
+| Enterprise | 1000 次/分钟| 50   | 大规模场景  |
+
+<Tip>
+准备好开工？跳到 [快速开始](/zh/quickstart) 或浏览 [API 参考](/zh/api-reference/overview)。
+</Tip>
