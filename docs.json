@@ -29,15 +29,17 @@
                 "pages": [
                   "en/api-reference/endpoints/distill",
                   "en/api-reference/endpoints/batch-distill",
-                  "en/api-reference/endpoints/batch-distill-status"
+                  "en/api-reference/endpoints/batch-distill-status",
+                  "en/api-reference/endpoints/cancel-batch-distill"
                 ]
               },
               {
                 "group": "Extract",
                 "pages": [
                   "en/api-reference/endpoints/extract",
-                  "en/api-reference/endpoints/extract-batch",
-                  "en/api-reference/endpoints/extract-batch-status"
+                  "en/api-reference/endpoints/batch-extract",
+                  "en/api-reference/endpoints/batch-extract-status",
+                  "en/api-reference/endpoints/cancel-batch-extract"
                 ]
               }
             ]
@@ -63,15 +65,17 @@
                 "pages": [
                   "zh/api-reference/endpoints/distill",
                   "zh/api-reference/endpoints/batch-distill",
-                  "zh/api-reference/endpoints/batch-distill-status"
+                  "zh/api-reference/endpoints/batch-distill-status",
+                  "zh/api-reference/endpoints/cancel-batch-distill"
                 ]
               },
               {
                 "group": "Extract",
                 "pages": [
                   "zh/api-reference/endpoints/extract",
-                  "zh/api-reference/endpoints/extract-batch",
-                  "zh/api-reference/endpoints/extract-batch-status"
+                  "zh/api-reference/endpoints/batch-extract",
+                  "zh/api-reference/endpoints/batch-extract-status",
+                  "zh/api-reference/endpoints/cancel-batch-extract"
                 ]
               }
             ]
@@ -97,15 +101,17 @@
                 "pages": [
                   "ja/api-reference/endpoints/distill",
                   "ja/api-reference/endpoints/batch-distill",
-                  "ja/api-reference/endpoints/batch-distill-status"
+                  "ja/api-reference/endpoints/batch-distill-status",
+                  "ja/api-reference/endpoints/cancel-batch-distill"
                 ]
               },
               {
                 "group": "Extract",
                 "pages": [
                   "ja/api-reference/endpoints/extract",
-                  "ja/api-reference/endpoints/extract-batch",
-                  "ja/api-reference/endpoints/extract-batch-status"
+                  "ja/api-reference/endpoints/batch-extract",
+                  "ja/api-reference/endpoints/batch-extract-status",
+                  "ja/api-reference/endpoints/cancel-batch-extract"
                 ]
               }
             ]
