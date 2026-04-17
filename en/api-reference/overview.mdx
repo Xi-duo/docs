@@ -1,47 +1,40 @@
 ---
-title: 'API Overview'
-description: 'Base URL, authentication, and error handling for the Thunderbit Open API'
+title: "API Overview"
+description: "Base URL, authentication, and error codes"
 ---
 
 ## Base URL
 
 ```
-https://open.thunderbit.com/v1
+https://openapi.thunderbit.com/openapi/v1
 ```
 
 ## Authentication
 
-All endpoints use HTTP Bearer (JWT):
+All endpoints use HTTP Bearer (API Key):
 
 ```
 Authorization: Bearer YOUR_API_KEY
 ```
 
-## Error Responses
+## Error Codes
 
-<Warning>
-Errors return a consistent envelope: `{ "success": false, "error": { "code": "...", "message": "..." } }`
-</Warning>
-
-| Code                  | Meaning                             |
-| --------------------- | ----------------------------------- |
-| `INVALID_URL`         | Invalid URL format                  |
-| `URL_NOT_ACCESSIBLE`  | Target URL unreachable              |
-| `TIMEOUT`             | Request timeout                     |
-| `QUOTA_EXCEEDED`      | Quota exhausted                     |
-| `RATE_LIMITED`        | Rate limit triggered                |
-| `INVALID_SCHEMA`      | Invalid JSON Schema                 |
-| `EXTRACTION_FAILED`   | AI extraction failed                |
-| `BATCH_SIZE_EXCEEDED` | Batch request exceeds maximum       |
-| `INVALID_WEBHOOK_URL` | Webhook URL invalid or not HTTPS    |
-
-## Endpoints
-
-<CardGroup cols={2}>
-  <Card title="POST /distill" icon="file-lines" href="/en/api-reference/endpoints/distill">Distill a single page to Markdown</Card>
-  <Card title="POST /batch/distill" icon="layer-group" href="/en/api-reference/endpoints/batch-distill">Batch distill up to 100 URLs</Card>
-  <Card title="GET /batch/distill/{id}" icon="clock-rotate-left" href="/en/api-reference/endpoints/batch-distill-status">Poll batch distill status</Card>
-  <Card title="POST /extract" icon="brain" href="/en/api-reference/endpoints/extract">AI structured extraction</Card>
-  <Card title="POST /extract/batch" icon="layer-group" href="/en/api-reference/endpoints/extract-batch">Batch extract up to 50 URLs</Card>
-  <Card title="GET /extract/batch/{id}" icon="clock-rotate-left" href="/en/api-reference/endpoints/extract-batch-status">Poll batch extract status</Card>
-</CardGroup>
+| Code | Description |
+| ---- | ----------- |
+| `INVALID_URL` | Invalid URL format |
+| `INVALID_PARAMETER` | Invalid request parameter |
+| `URL_NOT_ACCESSIBLE` | Unable to access target URL |
+| `TIMEOUT` | Request timeout |
+| `INSUFFICIENT_CREDITS` | Not enough credits |
+| `RATE_LIMIT_EXCEEDED` | Rate limit triggered |
+| `INVALID_SCHEMA` | Invalid Schema format |
+| `SCHEMA_OR_PROMPT_REQUIRED` | Schema is required for extraction |
+| `EXTRACTION_FAILED` | AI extraction failed |
+| `DISTILL_FAILED` | Web distillation failed |
+| `BATCH_SIZE_EXCEEDED` | Batch request count exceeded limit |
+| `INVALID_WEBHOOK_URL` | Invalid Webhook URL format or not HTTPS |
+| `WEBHOOK_DELIVERY_FAILED` | Webhook callback delivery failed |
+| `JOB_NOT_FOUND` | Batch job not found |
+| `INVALID_API_KEY` | API key is invalid |
+| `API_KEY_DISABLED` | API key has been disabled |
+| `INTERNAL_ERROR` | Internal server error |

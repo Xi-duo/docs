@@ -1,47 +1,23 @@
 ---
-title: 'はじめに'
-description: 'Thunderbit Open API で、あらゆるウェブコンテンツを LLM 対応データに'
+title: "はじめに"
+description: "Thunderbit Open API をはじめよう"
 ---
 
-<Card title="Thunderbit Open API へようこそ" icon="bolt" href="/ja/quickstart">
-  強力なウェブ蒸留と AI データ抽出。任意のウェブページをクリーンな Markdown や構造化 JSON に変換 — AI アプリケーション向けに最適化。
-</Card>
+Thunderbit Open APIは、強力なWebディスティレーションとインテリジェントなデータ抽出機能を提供し、あらゆるWebコンテンツをLLM対応フォーマットに変換します。
 
 ## 主な機能
 
-<CardGroup cols={2}>
-  <Card title="ウェブ蒸留" icon="wand-magic-sparkles">
-    ウェブページを RAG や AI 用途に最適なクリーンな Markdown に変換します。
-  </Card>
-  <Card title="AI 構造化抽出" icon="brain">
-    JSON Schema または自然言語プロンプトで構造化データを抽出します。
-  </Card>
-  <Card title="バッチ処理" icon="layer-group">
-    複数 URL を非同期で処理。ジョブ管理と Webhook 通知に対応。
-  </Card>
-  <Card title="エンタープライズ対応" icon="shield-halved">
-    JS レンダリング、Bot 対策、プロキシ、動的コンテンツを自動処理。
-  </Card>
-</CardGroup>
+🔥 **Webディスティレーション** - WebページをクリーンなMarkdown形式に変換、AIアプリケーションに最適
 
-## 認証
+🧠 **AI搭載の抽出** - スキーマまたは自然言語プロンプトを使用して構造化データを抽出
 
-<Note>
-すべてのリクエストで Bearer トークンが必要です。[Thunderbit ダッシュボード](https://thunderbit.com) から取得してください。
-</Note>
+⚡ **バッチ処理** - 非同期ジョブ管理で複数のURLを同時に処理
 
-```bash
-Authorization: Bearer YOUR_API_KEY
-```
+🛡️ **エンタープライズ対応** - JavaScriptレンダリング、アンチボット対策、プロキシ、動的コンテンツを自動的に処理
 
-## レート制限
+## 自動処理される項目
 
-| プラン     | リクエスト   | 同時実行 | 用途              |
-| ---------- | ------------ | -------- | ----------------- |
-| Free       | 10/分        | 2        | 検証・プロトタイプ|
-| Pro        | 100/分       | 10       | プロダクション    |
-| Enterprise | 1000/分      | 50       | 大規模運用        |
-
-<Tip>
-次は [クイックスタート](/ja/quickstart) または [API リファレンス](/ja/api-reference/overview) へ。
-</Tip>
+- **動的コンテンツ**: JavaScriptでレンダリングされたページ、SPA、AJAXで読み込まれたコンテンツ
+- **アンチボット保護**: CAPTCHAおよびボット検出システムの自動処理
+- **コンテンツ処理**: AI消費に最適なインテリジェントなクリーニングとフォーマット
+- **メタデータ抽出**: タイトル、説明、構造化メタデータの自動抽出

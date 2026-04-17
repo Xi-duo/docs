@@ -1,51 +1,33 @@
 ---
-title: 'クイックスタート'
-description: '60 秒で Thunderbit API の最初のリクエストを送る'
+title: "クイックスタート"
+description: "60 秒で最初の API コール"
 ---
 
-## 1. API キーを取得
+## 認証
 
-<Steps>
-  <Step title="サインアップ">
-    [thunderbit.com](https://thunderbit.com) でアカウント作成。
-  </Step>
-  <Step title="キーをコピー">
-    **ダッシュボード → API Keys** から取得。
-  </Step>
-  <Step title="環境変数を設定">
-    ```bash
-    export THUNDERBIT_API_KEY="sk_live_..."
-    ```
-  </Step>
-</Steps>
-
-## 2. ページを蒸留
-
-```bash
-curl 'https://open.thunderbit.com/v1/distill' \
-  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{"url": "https://example.com/article"}'
+すべてのAPIリクエストにはリクエストヘッダーにAPIキーが必要です：
+```
+Authorization: Bearer <YOUR_API_KEY>
 ```
 
-## 3. 構造化データを抽出
+APIキーは[Thunderbitダッシュボード](https://thunderbit.com)から取得してください。
+
+## Quick Start
+
+Distill a web page into clean Markdown with a single API call:
 
 ```bash
-curl 'https://open.thunderbit.com/v1/extract' \
-  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "url": "https://example.com/product",
-    "schema": {
-      "type": "object",
-      "properties": {
-        "title": {"type": "string"},
-        "price": {"type": "number"}
-      }
-    }
-  }'
+curl -X POST https://openapi.thunderbit.com/openapi/v1/distill \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com"}'
 ```
 
-<Check>
-`success: true` のレスポンスが返ってきたら成功です。続けて [API リファレンス](/ja/api-reference/overview) を確認してください。
-</Check>
+Extract structured data from any web page:
+
+```bash
+curl -X POST https://openapi.thunderbit.com/openapi/v1/extract \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/product", "schema": {"type": "object", "properties": {"name": {"type": "string"}, "price": {"type": "number"}}}}'
+```

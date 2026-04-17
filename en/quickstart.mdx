@@ -1,51 +1,33 @@
 ---
-title: 'Quickstart'
-description: 'Make your first Thunderbit API call in under 60 seconds'
+title: "Quickstart"
+description: "Make your first API call in 60 seconds"
 ---
 
-## 1. Get your API Key
+## Authentication
 
-<Steps>
-  <Step title="Sign up">
-    Create an account at [thunderbit.com](https://thunderbit.com).
-  </Step>
-  <Step title="Copy your key">
-    Find your key in **Dashboard → API Keys**.
-  </Step>
-  <Step title="Set environment variable">
-    ```bash
-    export THUNDERBIT_API_KEY="sk_live_..."
-    ```
-  </Step>
-</Steps>
-
-## 2. Distill a page
-
-```bash
-curl 'https://open.thunderbit.com/v1/distill' \
-  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{"url": "https://example.com/article"}'
+All API requests require an API Key in the request header:
+```
+Authorization: Bearer <YOUR_API_KEY>
 ```
 
-## 3. Extract structured data
+Get your API key from the [Thunderbit Dashboard](https://thunderbit.com).
+
+## Quick Start
+
+Distill a web page into clean Markdown with a single API call:
 
 ```bash
-curl 'https://open.thunderbit.com/v1/extract' \
-  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "url": "https://example.com/product",
-    "schema": {
-      "type": "object",
-      "properties": {
-        "title": {"type": "string"},
-        "price": {"type": "number"}
-      }
-    }
-  }'
+curl -X POST https://openapi.thunderbit.com/openapi/v1/distill \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com"}'
 ```
 
-<Check>
-You should receive a JSON response with `success: true`. Next, explore the full [API Reference](/en/api-reference/overview).
-</Check>
+Extract structured data from any web page:
+
+```bash
+curl -X POST https://openapi.thunderbit.com/openapi/v1/extract \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/product", "schema": {"type": "object", "properties": {"name": {"type": "string"}, "price": {"type": "number"}}}}'
+```

@@ -21,6 +21,14 @@
             ]
           },
           {
+            "group": "Guides",
+            "pages": [
+              "en/credits",
+              "en/rate-limits",
+              "en/output-formats"
+            ]
+          },
+          {
             "group": "API Reference",
             "pages": [
               "en/api-reference/overview",
@@ -43,6 +51,12 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Models",
+            "pages": [
+              "en/models/error"
+            ]
           }
         ]
       },
@@ -54,6 +68,14 @@
             "pages": [
               "zh/introduction",
               "zh/quickstart"
+            ]
+          },
+          {
+            "group": "指南",
+            "pages": [
+              "zh/credits",
+              "zh/rate-limits",
+              "zh/output-formats"
             ]
           },
           {
@@ -79,6 +101,12 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Models",
+            "pages": [
+              "zh/models/error"
+            ]
           }
         ]
       },
@@ -90,6 +118,14 @@
             "pages": [
               "ja/introduction",
               "ja/quickstart"
+            ]
+          },
+          {
+            "group": "ガイド",
+            "pages": [
+              "ja/credits",
+              "ja/rate-limits",
+              "ja/output-formats"
             ]
           },
           {
@@ -114,6 +150,12 @@
                   "ja/api-reference/endpoints/cancel-batch-extract"
                 ]
               }
+            ]
+          },
+          {
+            "group": "Models",
+            "pages": [
+              "ja/models/error"
             ]
           }
         ]

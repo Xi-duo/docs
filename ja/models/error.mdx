@@ -1,0 +1,24 @@
+---
+title: "Error"
+description: "標準エラーレスポンス形式"
+---
+
+## エラーレスポンス構造
+
+すべてのエンドポイントのエラーレスポンスは統一フォーマットです。
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_URL",
+    "message": "The provided URL is not valid"
+  }
+}
+```
+
+## Fields
+
+- `success` (`boolean`): always `false` for errors
+- `error.code` (`string`): machine-readable error code — see [Error Codes](../api-reference/overview#error-codes)
+- `error.message` (`string`): human-readable error description

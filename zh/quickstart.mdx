@@ -1,51 +1,33 @@
 ---
-title: '快速开始'
-description: '60 秒内发出你的第一个 Thunderbit API 请求'
+title: "快速开始"
+description: "60 秒内完成首次 API 调用"
 ---
 
-## 1. 获取 API Key
+## 身份认证
 
-<Steps>
-  <Step title="注册账号">
-    在 [thunderbit.com](https://thunderbit.com) 注册。
-  </Step>
-  <Step title="复制 Key">
-    **Dashboard → API Keys** 里找到你的 Key。
-  </Step>
-  <Step title="设置环境变量">
-    ```bash
-    export THUNDERBIT_API_KEY="sk_live_..."
-    ```
-  </Step>
-</Steps>
-
-## 2. 蒸馏一个页面
-
-```bash
-curl 'https://open.thunderbit.com/v1/distill' \
-  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{"url": "https://example.com/article"}'
+所有 API 请求都需要在请求头中携带 API Key：
+```
+Authorization: Bearer <YOUR_API_KEY>
 ```
 
-## 3. 提取结构化数据
+从 [Thunderbit 控制台](https://thunderbit.com) 获取您的 API Key。
+
+## Quick Start
+
+Distill a web page into clean Markdown with a single API call:
 
 ```bash
-curl 'https://open.thunderbit.com/v1/extract' \
-  -H "Authorization: Bearer $THUNDERBIT_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "url": "https://example.com/product",
-    "schema": {
-      "type": "object",
-      "properties": {
-        "title": {"type": "string"},
-        "price": {"type": "number"}
-      }
-    }
-  }'
+curl -X POST https://openapi.thunderbit.com/openapi/v1/distill \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com"}'
 ```
 
-<Check>
-响应应该包含 `success: true`。接下来探索完整的 [API 参考](/zh/api-reference/overview)。
-</Check>
+Extract structured data from any web page:
+
+```bash
+curl -X POST https://openapi.thunderbit.com/openapi/v1/extract \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/product", "schema": {"type": "object", "properties": {"name": {"type": "string"}, "price": {"type": "number"}}}}'
+```
