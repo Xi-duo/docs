@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "almond",
   "name": "Thunderbit Open API",
   "colors": {
     "primary": "#6366F1",
