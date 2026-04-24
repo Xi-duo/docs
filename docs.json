@@ -3,7 +3,9 @@
   "theme": "almond",
   "name": "Thunderbit Open API",
   "colors": {
-    "primary": "#AF6A3C"
+    "primary": "#009689",
+    "light": "#00BBA7",
+    "dark": "#009689"
   },
   "favicon": "/favicon.svg",
   "navigation": {
